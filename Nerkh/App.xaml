@@ -1,0 +1,98 @@
+<Application x:Class="Nerkh.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <FontFamily x:Key="AppFont">Segoe UI, Tahoma</FontFamily>
+
+        <!-- Nerkho dark market palette -->
+        <SolidColorBrush x:Key="PageBrush" Color="#090C12"/>
+        <SolidColorBrush x:Key="SidebarBrush" Color="#0D1119"/>
+        <SolidColorBrush x:Key="PanelBrush" Color="#111722"/>
+        <SolidColorBrush x:Key="CardBrush" Color="#151C28"/>
+        <SolidColorBrush x:Key="CardHoverBrush" Color="#1A2331"/>
+        <SolidColorBrush x:Key="LineBrush" Color="#273143"/>
+        <SolidColorBrush x:Key="TextBrush" Color="#F4F7FB"/>
+        <SolidColorBrush x:Key="MutedBrush" Color="#8B96A9"/>
+        <SolidColorBrush x:Key="SubtleBrush" Color="#5E697C"/>
+        <SolidColorBrush x:Key="AccentBrush" Color="#7667F5"/>
+        <SolidColorBrush x:Key="AccentSoftBrush" Color="#2A254B"/>
+        <SolidColorBrush x:Key="GreenBrush" Color="#2DD4BF"/>
+        <SolidColorBrush x:Key="RedBrush" Color="#FB7185"/>
+        <SolidColorBrush x:Key="GoldBrush" Color="#F3C969"/>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource AppFont}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="{StaticResource AppFont}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Root" Background="{TemplateBinding Background}" CornerRadius="9" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Root" Property="Background" Value="{StaticResource CardHoverBrush}"/></Trigger>
+                            <Trigger Property="IsPressed" Value="True"><Setter TargetName="Root" Property="Opacity" Value=".72"/></Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="IconButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Width" Value="36"/><Setter Property="Height" Value="34"/>
+            <Setter Property="FontSize" Value="14"/><Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="NavButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Height" Value="46"/><Setter Property="Margin" Value="0,3"/>
+            <Setter Property="Padding" Value="14,0"/><Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Foreground" Value="{StaticResource MutedBrush}"/>
+        </Style>
+
+        <!-- Slim, quiet scrollbar used by the page and market lists -->
+        <Style x:Key="NerkhoThumb" TargetType="Thumb">
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <Border x:Name="ThumbBody" Background="#3C475B" CornerRadius="4"/>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="ThumbBody" Property="Background" Value="#7667F5"/></Trigger>
+                            <Trigger Property="IsDragging" Value="True"><Setter TargetName="ThumbBody" Property="Background" Value="#9287FF"/></Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="ScrollBar">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Width" Value="10"/>
+            <Setter Property="MinWidth" Value="10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ScrollBar">
+                        <Grid Background="Transparent">
+                            <Track x:Name="PART_Track" Orientation="{TemplateBinding Orientation}" IsDirectionReversed="True">
+                                <Track.DecreaseRepeatButton><RepeatButton Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="False"/></Track.DecreaseRepeatButton>
+                                <Track.Thumb><Thumb Style="{StaticResource NerkhoThumb}"/></Track.Thumb>
+                                <Track.IncreaseRepeatButton><RepeatButton Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="False"/></Track.IncreaseRepeatButton>
+                            </Track>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Orientation" Value="Horizontal"><Setter Property="Height" Value="10"/><Setter Property="MinHeight" Value="10"/><Setter Property="Width" Value="Auto"/></Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Application.Resources>
+</Application>
